@@ -1,66 +1,18 @@
 ---
-title: Good Accessibility Tables
-description: Examples of HTML tables that follow WCAG best practices and HTML success techniques.
+title: Accessible Tables
+description: Examples of HTML tables that pass WCAG criteria.
 ---
-
 import { Tabs, TabItem } from '@astrojs/starlight/components';
-import '../../styles/bad-tables.css';
+import '../../../styles/global.css';
 
-<style>
-    /* Accessible Table Styling */
-    .a11y-table {
-        border-collapse: collapse;
-        width: 100%;
-        max-width: 800px;
-        margin-bottom: 30px;
-        border: 2px solid #333;
-    }
-
-    .a11y-table th, .a11y-table td {
-        border: 1px solid #ccc;
-        padding: 12px;
-        text-align: left;
-    }
-
-    /* High Contrast Headers */
-    .a11y-table th {
-        background-color: #005A9C; 
-        color: #ffffff; 
-        font-weight: bold;
-    }
-
-    .a11y-table caption {
-        font-size: 1.2em;
-        font-weight: bold;
-        text-align: left;
-        padding-bottom: 10px;
-        color: var(--sl-color-white);
-    }
-
-    /* Accessible Zebra Striping (Passes G18 Contrast Requirements) */
-    .zebra-table tr:nth-child(even) {
-        background-color: #f2f2f2; 
-        color: #000000; 
-    }
-    
-    .zebra-table tr:nth-child(odd) {
-        background-color: #ffffff; 
-        color: #000000;
-    }
-</style>
-
-These examples demonstrate how to correctly mark up HTML tables to ensure they are fully navigable and understandable by users relying on assistive technologies.
-
-## Table 1: The Standard Simple Table
-
-This is the standard, most robust way to build a table. 
-* <a href="https://www.w3.org/WAI/WCAG21/Techniques/html/H39">WCAG Technique H39</a>: Uses a descriptive `caption`.
-* <a href="https://www.w3.org/WAI/WCAG21/Techniques/html/H63">WCAG Technique H63</a>: Uses `scope="col"` and `scope="row"` to explicitly define header relationships.
-* **Data Separation:** Every piece of data has its own semantic cell; no `<br>` tags are used for layout.
+## Table 1: Simple Data Table
+*   [WCAG Technique H39](https://www.w3.org/WAI/WCAG21/Techniques/html/H39) Uses a descriptive `caption`.
+*   [WCAG Technique H63](https://www.w3.org/WAI/WCAG21/Techniques/html/H63) Uses `scope="col"` and `scope="row"` to explicitly define header relationships.
+*   **Data Separation:** Every piece of data has its own semantic cell, no `<br>` tags used for layout.
 
 <Tabs>
-  <TabItem label="Rendered View">
-    <table class="a11y-table">
+  <TabItem label="Preview">
+    <table>
         <caption>Employee Directory and Assigned Departments</caption>
         <tr>
             <th scope="col">ID</th>
@@ -88,8 +40,7 @@ This is the standard, most robust way to build a table.
         </tr>
     </table>
   </TabItem>
-  
-  <TabItem label="Code View">
+  <TabItem label="Code (HTML)">
     ```html
     <table>
         <caption>Employee Directory and Assigned Departments</caption>
@@ -122,15 +73,14 @@ This is the standard, most robust way to build a table.
   </TabItem>
 </Tabs>
 
-## Tables 2 & 3: Breaking Down Complex Tables
+## Table 2 & 3: Breaking Down Complex Tables
+As recommended, rather than creating a massive table with complex `colspan` and `rowspan` attributes (which can be difficult for screen readers to navigate), the data is broken up into two simpler, highly readable tables.
 
-As recommended by accessibility guidelines, rather than creating a massive table with complex `colspan` and `rowspan` attributes, complex data should be broken up into simpler, highly readable tables. 
-
-These tables also demonstrate <a href="https://www.w3.org/WAI/WCAG21/Techniques/general/G18">WCAG Technique G18</a>, using high-contrast zebra striping to aid users with cognitive or reading difficulties without sacrificing mathematical contrast requirements.
+*   [WCAG Technique G18](https://www.w3.org/WAI/WCAG21/Techniques/general/G18) Uses high-contrast zebra striping to aid users with cognitive or reading difficulties without sacrificing readability.
 
 <Tabs>
-  <TabItem label="Rendered View">
-    <table class="a11y-table zebra-table">
+  <TabItem label="Preview">
+    <table class="zebra-table">
         <caption>Q1 Hardware Inventory: Laptops</caption>
         <tr>
             <th scope="col">Model</th>
@@ -150,9 +100,15 @@ These tables also demonstrate <a href="https://www.w3.org/WAI/WCAG21/Techniques/
             <td>30</td>
             <td>10</td>
         </tr>
+        <tr>
+            <th scope="row">Lenovo ThinkPad</th>
+            <td>15</td>
+            <td>60</td>
+            <td>0</td>
+        </tr>
     </table>
 
-    <table class="a11y-table zebra-table">
+    <table class="zebra-table">
         <caption>Q1 Hardware Inventory: Mobile Devices</caption>
         <tr>
             <th scope="col">Model</th>
@@ -172,10 +128,15 @@ These tables also demonstrate <a href="https://www.w3.org/WAI/WCAG21/Techniques/
             <td>40</td>
             <td>5</td>
         </tr>
+        <tr>
+            <th scope="row">iPad Pro 11"</th>
+            <td>5</td>
+            <td>25</td>
+            <td>2</td>
+        </tr>
     </table>
   </TabItem>
-  
-  <TabItem label="Code View">
+  <TabItem label="Code (HTML)">
     ```html
     <table class="zebra-table">
         <caption>Q1 Hardware Inventory: Laptops</caption>
@@ -197,6 +158,12 @@ These tables also demonstrate <a href="https://www.w3.org/WAI/WCAG21/Techniques/
             <td>30</td>
             <td>10</td>
         </tr>
+        <tr>
+            <th scope="row">Lenovo ThinkPad</th>
+            <td>15</td>
+            <td>60</td>
+            <td>0</td>
+        </tr>
     </table>
 
     <table class="zebra-table">
@@ -219,20 +186,26 @@ These tables also demonstrate <a href="https://www.w3.org/WAI/WCAG21/Techniques/
             <td>40</td>
             <td>5</td>
         </tr>
+        <tr>
+            <th scope="row">iPad Pro 11"</th>
+            <td>5</td>
+            <td>25</td>
+            <td>2</td>
+        </tr>
     </table>
     ```
   </TabItem>
 </Tabs>
 
-## Table 4: The Complex Data Table
-
+## Table 4: Complex Data Table
 While simplifying tables is preferred, if you must use a complex layout with merged cells, you must explicitly link the data to the headers.
 
-* <a href="https://www.w3.org/WAI/WCAG21/Techniques/html/H43">WCAG Technique H43</a>: Uses the `id` attribute on header cells and the `headers` attribute on data cells to unambiguously associate them, even across nested columns.
+*   [WCAG Technique H43](https://www.w3.org/WAI/WCAG21/Techniques/html/H43)
+    *   Uses the `id` attribute on header cells and the `headers` attribute on data cells to unambiguously associate them, even across nested columns.
 
 <Tabs>
-  <TabItem label="Rendered View">
-    <table class="a11y-table">
+  <TabItem label="Preview">
+    <table>
         <caption>Employee Equipment Assignments</caption>
         <tr>
             <th rowspan="2" id="hdr-employee">Employee Name</th>
@@ -254,8 +227,7 @@ While simplifying tables is preferred, if you must use a complex layout with mer
         </tr>
     </table>
   </TabItem>
-  
-  <TabItem label="Code View">
+  <TabItem label="Code (HTML)">
     ```html
     <table>
         <caption>Employee Equipment Assignments</caption>

@@ -1,58 +1,65 @@
 ---
-title: Bad Accessibility Tables
+title: Inaccessible Tables
 description: Examples of HTML tables that fail WCAG criteria.
 ---
-
 import { Tabs, TabItem } from '@astrojs/starlight/components';
-
-<style>
-    /* Paste your custom CSS for these examples here */
-    .fake-header { font-weight: bold; background-color: #eee; text-align: center; }
-    .layout-table { width: 100%; border: none; }
-    .bad-zebra tr:nth-child(even) { background-color: #777777; color: #555555; }
-    
-    .div-table { display: table; width: 100%; border: 1px solid #ccc; margin-bottom: 1rem; }
-    .div-row { display: table-row; }
-    .div-cell { display: table-cell; border: 1px solid #ccc; padding: 8px; }
-    .div-header { display: table-cell; font-weight: bold; background: #eee; padding: 8px; border: 1px solid #ccc; }
-</style>
-
-These examples demonstrate common WCAG failures when composing HTML tables.
+import '../../../styles/global.css';
 
 ## Table 1: Tables for layout
-
-Using an HTML layout table that does not make sense when linearized violates **WCAG Failure Technique F49**. Using `th` and `caption` in a layout table violates **F46**.
+*   [WCAG Failure Technique F49](https://www.w3.org/WAI/WCAG21/Techniques/failures/F49)
+    *   Uses an HTML layout table that does not make sense when linearized.
+*   [WCAG Failure Technique F46](https://www.w3.org/TR/WCAG20-TECHS/F46.html)
+    *   Uses semantic table elements (`summary`, `caption`) in a layout table.
 
 <Tabs>
-  <TabItem label="Rendered View">
+  <TabItem label="Preview">
     <table class="layout-table" summary="This table is used to format the page layout">
         <caption>Page Layout Structure</caption>
-        <tr>
-            <th>Left Navigation</th>
-            <td>Main Content - Welcome to our website.</td>
-            <td>Right Sidebar - Ads go here.</td>
-        </tr>
         <tr>
             <td>The quick brown fox</td>
             <td>jumps over the</td>
             <td>lazy dog.</td>
         </tr>
+        <tr>
+            <td>Accessibility is</td>
+            <td>a fundamental right</td>
+            <td>for all users.</td>
+        </tr>
+        <tr>
+            <td>Never use tables</td>
+            <td>just to position</td>
+            <td>elements on a screen.</td>
+        </tr>
+        <tr>
+            <td>Screen readers will</td>
+            <td>read this left to right</td>
+            <td>and it will sound awful.</td>
+        </tr>
     </table>
   </TabItem>
-  
-  <TabItem label="Code View">
+  <TabItem label="Code (HTML)">
     ```html
     <table class="layout-table" summary="This table is used to format the page layout">
         <caption>Page Layout Structure</caption>
         <tr>
-            <th>Left Navigation</th>
-            <td>Main Content - Welcome to our website.</td>
-            <td>Right Sidebar - Ads go here.</td>
-        </tr>
-        <tr>
             <td>The quick brown fox</td>
             <td>jumps over the</td>
             <td>lazy dog.</td>
+        </tr>
+        <tr>
+            <td>Accessibility is</td>
+            <td>a fundamental right</td>
+            <td>for all users.</td>
+        </tr>
+        <tr>
+            <td>Never use tables</td>
+            <td>just to position</td>
+            <td>elements on a screen.</td>
+        </tr>
+        <tr>
+            <td>Screen readers will</td>
+            <td>read this left to right</td>
+            <td>and it will sound awful.</td>
         </tr>
     </table>
     ```
@@ -60,11 +67,22 @@ Using an HTML layout table that does not make sense when linearized violates **W
 </Tabs>
 
 ## Table 2: Bad Data Table
-
-This table violates several rules, including **F91** (faking headers), **F92** (using presentation roles on data), and **SC 1.3.1** (missing scope attributes).
+*   **General SC 1.3.1 Failures**
+    *   leaves the `caption` element blank.
+    *   `th` table headers are empty.
+*   [WCAG Failure Technique F90](https://www.w3.org/WAI/WCAG21/Techniques/failures/F90)
+    *   incorrectly associates table header and content via the `header` and `id` attributes. `$85,000` cell associated to non existent id
+*   [WCAG Failure Technique F91](https://www.w3.org/WAI/WCAG21/Techniques/failures/F91)
+    *   not correctly marking up table headers (e.g., using a standard `td` element with CSS classes to visually fake a header for "Employee Name" instead of using an actual `th` element)
+*   [WCAG Failure Technique F92](https://www.w3.org/WAI/WCAG21/Techniques/failures/F92)
+    *   using `role="presentation"` on a table that contains real tabular data, which completely strips the table semantics and hides the data grid from screen readers
+*   `th` missing `scope` attributes. `th` elements should use `scope="col"` or `scope="row"` to clearly identify their relationship to the data.
+*   combines separate pieces of data into a single column, listing assigned equipment for phone and laptop in same assigned equipment column.
+*   uses `br` elements to create visual line breaks inside a cell to fake a row (in the cells under Assigned Equipment). If a user resizes the text, the data will no longer align correctly.
+*   for the rows using "zebra striping" to distinguish even and odd rows, uses colors with a poor contrast ratio between the text and the background.
 
 <Tabs>
-  <TabItem label="Rendered View">
+  <TabItem label="Preview">
     <table role="presentation" class="bad-zebra">
         <caption></caption>
         <tr>
@@ -72,17 +90,64 @@ This table violates several rules, including **F91** (faking headers), **F92** (
             <td class="fake-header">Employee Name</td>
             <th id="hdr-dept">Department</th>
             <th id="hdr-salary">Salary</th>
+            <th id="hdr-assets">Assigned Equipment</th>
         </tr>
         <tr>
             <td>1</td>
             <td>John Doe</td>
             <td>Engineering</td>
             <td headers="hdr-bonus">$85,000</td>
+            <td>
+                Laptop: Dell XPS 15<br />
+                Monitor: LG 27"<br />
+                Phone: iPhone 13
+            </td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Jane Smith</td>
+            <td>Marketing</td>
+            <td headers="broken-id-reference">$72,000</td>
+            <td>
+                Laptop: MacBook Air<br />
+                Tablet: iPad Pro
+            </td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Bob Johnson</td>
+            <td>IT Support</td>
+            <td headers="hdr-bonus">$65,000</td>
+            <td>
+                Desktop: HP Envy<br />
+                Monitor: Dual Dell 24"<br />
+                Phone: Yealink Desk Phone
+            </td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Alice Williams</td>
+            <td>Human Resources</td>
+            <td headers="broken-id-reference">$78,000</td>
+            <td>
+                Laptop: Lenovo ThinkPad<br />
+                Phone: Google Pixel 7
+            </td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Charlie Brown</td>
+            <td>Sales</td>
+            <td headers="hdr-bonus">$60,000</td>
+            <td>
+                Laptop: Surface Pro<br />
+                Tablet: iPad Mini<br />
+                Phone: Samsung Galaxy S23
+            </td>
         </tr>
     </table>
   </TabItem>
-  
-  <TabItem label="Code View">
+  <TabItem label="Code (HTML)">
     ```html
     <table role="presentation" class="bad-zebra">
         <caption></caption>
@@ -91,12 +156,241 @@ This table violates several rules, including **F91** (faking headers), **F92** (
             <td class="fake-header">Employee Name</td>
             <th id="hdr-dept">Department</th>
             <th id="hdr-salary">Salary</th>
+            <th id="hdr-assets">Assigned Equipment</th>
         </tr>
         <tr>
             <td>1</td>
             <td>John Doe</td>
             <td>Engineering</td>
             <td headers="hdr-bonus">$85,000</td>
+            <td>
+                Laptop: Dell XPS 15<br>
+                Monitor: LG 27"<br>
+                Phone: iPhone 13
+            </td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Jane Smith</td>
+            <td>Marketing</td>
+            <td headers="broken-id-reference">$72,000</td>
+            <td>
+                Laptop: MacBook Air<br>
+                Tablet: iPad Pro
+            </td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Bob Johnson</td>
+            <td>IT Support</td>
+            <td headers="hdr-bonus">$65,000</td>
+            <td>
+                Desktop: HP Envy<br>
+                Monitor: Dual Dell 24"<br>
+                Phone: Yealink Desk Phone
+            </td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Alice Williams</td>
+            <td>Human Resources</td>
+            <td headers="broken-id-reference">$78,000</td>
+            <td>
+                Laptop: Lenovo ThinkPad<br>
+                Phone: Google Pixel 7
+            </td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Charlie Brown</td>
+            <td>Sales</td>
+            <td headers="hdr-bonus">$60,000</td>
+            <td>
+                Laptop: Surface Pro<br>
+                Tablet: iPad Mini<br>
+                Phone: Samsung Galaxy S23
+            </td>
+        </tr>
+    </table>
+    ```
+  </TabItem>
+</Tabs>
+
+## Table 3: "Fake" Div Table
+*   This table uses `div` elements and CSS to visually recreate a "table" without the appropriate semantic HTML structure.
+
+<Tabs>
+  <TabItem label="Preview">
+    <div class="div-table">
+        <div class="div-row">
+            <div class="div-header">Product</div>
+            <div class="div-header">Price</div>
+        </div>
+        <div class="div-row">
+            <div class="div-cell">Wireless Mouse</div>
+            <div class="div-cell">$25.00</div>
+        </div>
+        <div class="div-row">
+            <div class="div-cell">Mechanical Keyboard</div>
+            <div class="div-cell">$80.00</div>
+        </div>
+        <div class="div-row">
+            <div class="div-cell">USB-C Hub</div>
+            <div class="div-cell">$45.00</div>
+        </div>
+        <div class="div-row">
+            <div class="div-cell">Ergonomic Office Chair</div>
+            <div class="div-cell">$250.00</div>
+        </div>
+        <div class="div-row">
+            <div class="div-cell">27-inch 4K Monitor</div>
+            <div class="div-cell">$320.00</div>
+        </div>
+    </div>
+  </TabItem>
+  <TabItem label="Code (HTML)">
+    ```html
+    <div class="div-table">
+        <div class="div-row">
+            <div class="div-header">Product</div>
+            <div class="div-header">Price</div>
+        </div>
+        <div class="div-row">
+            <div class="div-cell">Wireless Mouse</div>
+            <div class="div-cell">$25.00</div>
+        </div>
+        <div class="div-row">
+            <div class="div-cell">Mechanical Keyboard</div>
+            <div class="div-cell">$80.00</div>
+        </div>
+        <div class="div-row">
+            <div class="div-cell">USB-C Hub</div>
+            <div class="div-cell">$45.00</div>
+        </div>
+        <div class="div-row">
+            <div class="div-cell">Ergonomic Office Chair</div>
+            <div class="div-cell">$250.00</div>
+        </div>
+        <div class="div-row">
+            <div class="div-cell">27-inch 4K Monitor</div>
+            <div class="div-cell">$320.00</div>
+        </div>
+    </div>
+    ```
+  </TabItem>
+</Tabs>
+
+## Table 4: "Responsive CSS" & Tabindex Mistakes
+*   **Loss of Semantics (SC 1.3.1):** Uses `display: block;` in the CSS. While visually stacking the data for mobile, this CSS override completely strips the table semantics in the browser's accessibility tree. Screen readers treat it like a generic list of text.
+*   **Tabindex Overload (SC 2.4.3):** Uses `tabindex="0"` on every cell, forcing keyboard users to Tab through every piece of data instead of bypassing it naturally.
+*   [WCAG Failure Technique F87](https://www.w3.org/WAI/WCAG21/Techniques/failures/F87)
+    *   Inserts non-decorative content ("Status: ") using CSS `::before` pseudo-elements. This data might not be read by all screen readers and cannot be easily highlighted or copied by users.
+
+<Tabs>
+  <TabItem label="Preview">
+    <div class="block-table">
+        <table>
+            <caption>Server Status Grid</caption>
+            <tr>
+                <th scope="col">Server Name</th>
+                <th scope="col">Uptime</th>
+                <th scope="col">Health</th>
+            </tr>
+            <tr>
+                <td tabindex="0">Alpha-01</td>
+                <td tabindex="0">99.9%</td>
+                <td tabindex="0">Online</td>
+            </tr>
+            <tr>
+                <td tabindex="0">Beta-02</td>
+                <td tabindex="0">85.4%</td>
+                <td tabindex="0">Degraded</td>
+            </tr>
+        </table>
+    </div>
+  </TabItem>
+  <TabItem label="Code (HTML)">
+    ```html
+    <div class="block-table">
+        <table>
+            <caption>Server Status Grid</caption>
+            <tr>
+                <th scope="col">Server Name</th>
+                <th scope="col">Uptime</th>
+                <th scope="col">Health</th>
+            </tr>
+            <tr>
+                <td tabindex="0">Alpha-01</td>
+                <td tabindex="0">99.9%</td>
+                <td tabindex="0">Online</td>
+            </tr>
+            <tr>
+                <td tabindex="0">Beta-02</td>
+                <td tabindex="0">85.4%</td>
+                <td tabindex="0">Degraded</td>
+            </tr>
+        </table>
+    </div>
+    ```
+  </TabItem>
+</Tabs>
+
+## Table 5: The "Anti-Best Practice" Table
+*   **Fake Caption (SC 1.3.1):** Fails to use the semantic `caption` element, relying instead on a standard heading (`h3`) positioned above the table. Screen reader menus will list this table as "unnamed."
+*   **Incorrect Scope (SC 1.3.1):** Actively misuses the `scope` attribute by applying `scope="col"` to row headers and `scope="row"` to column headers.
+*   **Spacer Cell Hack (SC 1.3.1):** Uses an empty `td` element purely to create visual indentation/spacing, creating confusing "dead zones" for keyboard and screen reader navigation.
+
+
+
+<Tabs>
+  <TabItem label="Preview">
+  <h3 style={{ textAlign: "center", marginBottom: 0 }}>Quarterly Sales Goals</h3>
+    <table>
+        <tr>
+            <th></th>
+            <th scope="row">Q1</th>
+            <th scope="row">Q2</th>
+        </tr>
+        <tr>
+            <th scope="col">North America</th>
+            <td>$500,000</td>
+            <td>$550,000</td>
+        </tr>
+        <tr>
+            <td style={{ border: "none", background: "#fff" }}></td>
+            <td class="fake-header">New York Office</td>
+            <td>$150,000</td>
+        </tr>
+        <tr>
+            <th scope="col">Europe</th>
+            <td>$420,000</td>
+            <td>$480,000</td>
+        </tr>
+    </table>
+  </TabItem>
+  <TabItem label="Code (HTML)">
+    ```html
+    <h3 style="text-align: center; margin-bottom: 0;">Quarterly Sales Goals</h3>
+    <table>
+        <tr>
+            <th></th>
+            <th scope="row">Q1</th>
+            <th scope="row">Q2</th>
+        </tr>
+        <tr>
+            <th scope="col">North America</th>
+            <td>$500,000</td>
+            <td>$550,000</td>
+        </tr>
+        <tr>
+            <td style="border: none; background: #fff;"></td>
+            <td class="fake-header">New York Office</td>
+            <td>$150,000</td>
+        </tr>
+        <tr>
+            <th scope="col">Europe</th>
+            <td>$420,000</td>
+            <td>$480,000</td>
         </tr>
     </table>
     ```
