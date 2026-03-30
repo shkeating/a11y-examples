@@ -1,6 +1,8 @@
 
 # A11y Examples
 
+[![Built with Starlight](https://astro.badg.es/v2/built-with-starlight/tiny.svg)](https://starlight.astro.build)
+
 A documentation site outlining a11y best practices and failures in actual HTML code with annoations explaining accessibility failure and success techniques.
 
 ## Local Development Note
