@@ -4,7 +4,7 @@ import starlight from "@astrojs/starlight";
 
 export default defineConfig({
   site: "https://shkeating.github.io",
-  base: "/a11y-examples",
+  base: process.env.NODE_ENV === 'production' ? '/a11y-examples' : '/',
   integrations: [
     starlight({
       title: "a11y-examples",
