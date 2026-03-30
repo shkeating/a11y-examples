@@ -217,7 +217,7 @@ import '../../../styles/global.css';
 </Tabs>
 
 ## Table 3: "Fake" Div Table
-*   This table uses `div` elements and CSS to visually recreate a "table" without the appropriate semantic HTML structure.
+*   uses `div` elements and CSS to visually recreate a "table" without the appropriate semantic HTML structure.
 
 <Tabs>
   <TabItem label="Preview">
@@ -281,8 +281,8 @@ import '../../../styles/global.css';
 </Tabs>
 
 ## Table 4: "Responsive CSS" & Tabindex Mistakes
-*   **Loss of Semantics (SC 1.3.1):** Uses `display: block;` in the CSS. While visually stacking the data for mobile, this CSS override completely strips the table semantics in the browser's accessibility tree. Screen readers treat it like a generic list of text.
-*   **Tabindex Overload (SC 2.4.3):** Uses `tabindex="0"` on every cell, forcing keyboard users to Tab through every piece of data instead of bypassing it naturally.
+*   Uses `display: block;` in the CSS. While visually stacking the data for mobile, this CSS override removes the table semantics in the browser's accessibility tree. Screen readers treat it like a generic list of text.
+*   Uses `tabindex="0"` on every cell, forcing keyboard users to `Tab` through all of the data instead of using their typical table navigation controls
 *   [WCAG Failure Technique F87](https://www.w3.org/WAI/WCAG21/Techniques/failures/F87)
     *   Inserts non-decorative content ("Status: ") using CSS `::before` pseudo-elements. This data might not be read by all screen readers and cannot be easily highlighted or copied by users.
 
@@ -335,16 +335,14 @@ import '../../../styles/global.css';
   </TabItem>
 </Tabs>
 
-## Table 5: The "Anti-Best Practice" Table
-*   **Fake Caption (SC 1.3.1):** Fails to use the semantic `caption` element, relying instead on a standard heading (`h3`) positioned above the table. Screen reader menus will list this table as "unnamed."
-*   **Incorrect Scope (SC 1.3.1):** Actively misuses the `scope` attribute by applying `scope="col"` to row headers and `scope="row"` to column headers.
-*   **Spacer Cell Hack (SC 1.3.1):** Uses an empty `td` element purely to create visual indentation/spacing, creating confusing "dead zones" for keyboard and screen reader navigation.
-
-
+## Table 5: Going Against Best Practices
+*   does not include a semantic `caption` element, relying instead on a standard heading (`h3`) positioned above the table. Screen reader menus will list this table as "unnamed."
+*   misuses the `scope` attribute by applying `scope="col"` to row headers and `scope="row"` to column headers.
+*   uses an empty `td` element to create visual indentation/spacing, creating confusing "dead zones" for keyboard and screen reader navigation.
 
 <Tabs>
   <TabItem label="Preview">
-  <h3 style={{ textAlign: "center", marginBottom: 0 }}>Quarterly Sales Goals</h3>
+  <h3>Quarterly Sales Goals</h3>
     <table>
         <tr>
             <th></th>
@@ -370,7 +368,7 @@ import '../../../styles/global.css';
   </TabItem>
   <TabItem label="Code (HTML)">
     ```html
-    <h3 style="text-align: center; margin-bottom: 0;">Quarterly Sales Goals</h3>
+    <h3>Quarterly Sales Goals</h3>
     <table>
         <tr>
             <th></th>
