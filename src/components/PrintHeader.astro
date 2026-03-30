@@ -1,0 +1,44 @@
+---
+// src/components/PrintHeader.astro
+const currentDate = new Date().toLocaleDateString('en-US', {
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric',
+});
+
+// Astro.url.href automatically gets the full URL of the current page
+const currentUrl = Astro.url.href;
+---
+
+<div class="print-only-header">
+  <p>Shauna Keating</p>
+  <p>HCI 530 Advanced Accessibility</p>
+  <p>{currentDate}</p>
+  <p>For a better experience, visit: <a href={currentUrl}>{currentUrl}</a></p>
+</div>
+
+<style>
+  /* Hidden by default for screen and accessibility tree */
+  .print-only-header {
+    display: none;
+  }
+
+  @media print {
+    .print-only-header {
+      display: block;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 1rem;
+    }
+    .print-only-header p {
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.5;
+      font-family: var(--sl-font-system, sans-serif);
+    }
+    .print-only-header a {
+      color: #005A9C;
+      text-decoration: underline;
+    }
+  }
+</style>

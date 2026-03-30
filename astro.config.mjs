@@ -9,6 +9,9 @@ export default defineConfig({
     starlight({
       title: "a11y-examples",
       customCss: ["./src/styles/global.css"],
+      components: {
+        Banner: './src/components/PrintHeader.astro',
+      },
       social: [
         {
           label: "repo link",

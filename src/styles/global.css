@@ -120,3 +120,65 @@ caption {
     padding: 8px; 
     border: 1px solid var(--table-border); 
 }
+
+/* src/styles/global.css */
+
+@media print {
+
+
+    header.header, 
+  .sidebar, 
+  .mobile-sidebar-toggle,
+  footer.sl-footer {
+    display: none !important;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+
+  /* 2. Force CSS Variables to use your light-mode values for print */
+  :root {
+    --table-border: #ccc !important;
+    --table-caption: #333 !important;
+    --table-header-bg: #005A9C !important;
+    --table-header-text: #ffffff !important;
+    --zebra-even-bg: #f2f2f2 !important;
+    --zebra-even-text: #000000 !important;
+    --zebra-odd-bg: #ffffff !important;
+    --zebra-odd-text: #000000 !important;
+    --fake-header-bg: #eee !important;
+  }
+
+  /* 3. Ensure Code Previews (pre/code tags) keep their backgrounds */
+  pre, code, .sl-markdown-content pre {
+    background-color: var(--zebra-even-bg) !important;
+    color: var(--zebra-even-text) !important;
+    border: 1px solid var(--table-border) !important;
+  }
+
+  /* 4. Keep your previous tab-printing logic */
+  starlight-tabs [role="tablist"] {
+    display: none !important;
+  }
+
+  starlight-tabs [role="tabpanel"] {
+    display: block !important;
+    visibility: visible !important;
+    margin-bottom: 3rem;
+  }
+
+  /* 3. Inject headings based on the tab order in your MDX files */
+  
+  /* Targets the first tab (Rendered View) */
+  starlight-tabs [role="tabpanel"]:nth-of-type(1)::before {
+    content: "Output & Code";
+    display: block;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--table-header-bg, #005A9C);
+    border-bottom: 2px solid var(--table-border, #ccc);
+  }
+}
