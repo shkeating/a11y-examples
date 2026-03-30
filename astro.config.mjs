@@ -6,6 +6,10 @@ export default defineConfig({
 	integrations: [
 		starlight({
 			title: 'a11y-examples',
+			// GitHub Pages URL
+			site: 'https://shkeating.github.io', 
+			// repository name
+			base: '/a11y-examples',
 			customCss: [
 				'./src/styles/global.css',
 			],
