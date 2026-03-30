@@ -1,64 +1,125 @@
 @import url('https://fonts.googleapis.com/css2?family=Inclusive+Sans:ital,wght@0,300..700;1,300..700&display=swap');
 
-/* good tables */
+body {
+    font-family: "Inclusive Sans", Geneva, Tahoma, sans-serif;
+}
 
-        body {
-            font-family: "Inclusive Sans", Geneva, Tahoma, sans-serif;
-            line-height: 1.6;
-            margin: 20px;
-        }
+/* Theme Variables */
 
-        /* Base Accessible Table Styling */
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            max-width: 800px;
-            margin-bottom: 30px;
-        }
+:root {
+    --table-border: var(--sl-color-gray-5);
+    --table-caption: var(--sl-color-white);
+    
+    /* High contrast dark mode headers */
+    --table-header-bg: var(--sl-color-accent-low);
+    --table-header-text: var(--sl-color-white);
+    
+    /* Dark mode zebra striping */
+    --zebra-even-bg: var(--sl-color-gray-6);
+    --zebra-even-text: var(--sl-color-text);
+    --zebra-odd-bg: var(--sl-color-bg);
+    --zebra-odd-text: var(--sl-color-text);
+    
+    --fake-header-bg: var(--sl-color-gray-6);
+}
 
-        th,
-        td {
-            border: 1px solid #ccc;
-            padding: 12px;
-            text-align: left;
-        }
+:root[data-theme='light'] {
+    --table-border: #ccc;
+    --table-caption: #333;
+    
+    --table-header-bg: #005A9C;
+    --table-header-text: #ffffff;
+    
+    --zebra-even-bg: #f2f2f2;
+    --zebra-even-text: #000000;
+    --zebra-odd-bg: #ffffff;
+    --zebra-odd-text: #000000;
+    
+    --fake-header-bg: #eee;
+}
 
-        /* High Contrast Headers */
-        th {
-            background-color: #005A9C;
-            /* Dark blue */
-            color: #ffffff;
-            /* White text for high contrast (passes G18) */
-            font-weight: bold;
-        }
+/* ================= GOOD TABLES ================= */
 
-        caption {
-            font-size: 1.2em;
-            font-weight: bold;
-            text-align: left;
-            padding-bottom: 10px;
-            color: #333;
-        }
+table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 30px;
+}
 
-        /* Accessible Zebra Striping (Passes G18 Contrast Requirements) */
-        .zebra-table tr:nth-child(even) {
-            background-color: #f2f2f2;
-            /* Very light gray */
-            color: #000000;
-            /* Black text */
-        }
+th, td {
+    border: 1px solid var(--table-border);
+    padding: 12px;
+    text-align: left;
+}
 
-        .zebra-table tr:nth-child(odd) {
-            background-color: #ffffff;
-            color: #000000;
-        }
+th {
+    background-color: var(--table-header-bg);
+    color: var(--table-header-text);
+    font-weight: bold;
+}
 
-/* bad tables */
+caption {
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: left;
+    padding-bottom: 10px;
+    color: var(--table-caption);
+}
 
-.fake-header { font-weight: bold; background-color: #eee; text-align: center; }
-.layout-table { width: 100%; border: none; }
-.bad-zebra tr:nth-child(even) { background-color: #777777; color: #555555; }    
-.div-table { display: table; width: 100%; border: 1px solid #ccc; margin-bottom: 1rem; }
-.div-row { display: table-row; }
-.div-cell { display: table-cell; border: 1px solid #ccc; padding: 8px; }
-.div-header { display: table-cell; font-weight: bold; background: #eee; padding: 8px; border: 1px solid #ccc; }
+.zebra-table tr:nth-child(even) {
+    background-color: var(--zebra-even-bg);
+    color: var(--zebra-even-text);
+}
+
+.zebra-table tr:nth-child(odd) {
+    background-color: var(--zebra-odd-bg);
+    color: var(--zebra-odd-text);
+}
+
+/* ================= BAD TABLES ================= */
+
+.fake-header { 
+    font-weight: bold; 
+    background-color: var(--fake-header-bg); 
+    text-align: center; 
+}
+
+.layout-table { 
+    width: 100%; 
+    border: none; 
+}
+
+/* Intentional static hex codes! 
+  Kept static to ensure the contrast mathematically fails WCAG requirements
+  in both light and dark mode testing environments.
+*/
+.bad-zebra tr:nth-child(even) { 
+    background-color: #777777 !important; 
+    color: #555555 !important; 
+}    
+
+.div-table { 
+    display: table; 
+    width: 100%; 
+    border: 1px solid var(--table-border); 
+    margin-bottom: 1rem; 
+}
+
+.div-row { 
+    display: table-row; 
+}
+
+.div-cell { 
+    display: table-cell; 
+    border: 1px solid var(--table-border); 
+    padding: 8px; 
+}
+
+.div-header { 
+    display: table-cell; 
+    font-weight: bold; 
+    background: var(--fake-header-bg); 
+    padding: 8px; 
+    border: 1px solid var(--table-border); 
+}
