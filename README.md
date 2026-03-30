@@ -8,7 +8,7 @@ A documentation site outlining a11y best practices and failures in actual HTML c
 ## Local Development Note
 The project uses a `base` path for GitHub Pages compatibility. When running locally, the site is accessible at `http://localhost:4321/`. If `NODE_ENV` is set to production, it will expect the `/a11y-examples` subpath.
 
-## 🏗️ Project Structure
+## Project Structure
 * `src/content/docs/`: Where the documentation and code examples live as `.mdx` files.
 * `src/styles/`: Contains `global.css` with refactored Starlight variables for light/dark mode support.
 * `.github/workflows/`: Contains the automated deployment script for GitHub Pages.
@@ -21,7 +21,7 @@ Images can be added to `src/assets/` and embedded in Markdown with a relative li
 
 Static assets, like favicons, can be placed in the `public/` directory.
 
-### 🧞 Commands
+### Commands
 
 All commands are run from the root of the project, from a terminal:
 
