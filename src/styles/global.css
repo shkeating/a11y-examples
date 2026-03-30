@@ -1,12 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inclusive+Sans:ital,wght@0,300..700;1,300..700&display=swap');
 
-body {
-    font-family: "Inclusive Sans", Geneva, Tahoma, sans-serif;
-}
-
 /* Theme Variables */
 
 :root {
+    --sl-font: "Inclusive Sans", Geneva, Tahoma, sans-serif;
     --table-border: var(--sl-color-gray-5);
     --table-caption: var(--sl-color-white);
     
