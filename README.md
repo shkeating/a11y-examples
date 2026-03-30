@@ -13,8 +13,6 @@ The project uses a `base` path for GitHub Pages compatibility. When running loca
 * `src/styles/`: Contains `global.css` with refactored Starlight variables for light/dark mode support.
 * `.github/workflows/`: Contains the automated deployment script for GitHub Pages.
 
-this project uses the [Astro Starlight](https://starlight.astro.build/) documentation framework.
-
 Starlight looks for `.md` or `.mdx` files in the `src/content/docs/` directory. Each file is exposed as a route based on its file name.
 
 Images can be added to `src/assets/` and embedded in Markdown with a relative link.
