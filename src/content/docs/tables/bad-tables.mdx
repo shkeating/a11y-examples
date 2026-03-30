@@ -1,0 +1,104 @@
+---
+title: Bad Accessibility Tables
+description: Examples of HTML tables that fail WCAG criteria.
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<style>
+    /* Paste your custom CSS for these examples here */
+    .fake-header { font-weight: bold; background-color: #eee; text-align: center; }
+    .layout-table { width: 100%; border: none; }
+    .bad-zebra tr:nth-child(even) { background-color: #777777; color: #555555; }
+    
+    .div-table { display: table; width: 100%; border: 1px solid #ccc; margin-bottom: 1rem; }
+    .div-row { display: table-row; }
+    .div-cell { display: table-cell; border: 1px solid #ccc; padding: 8px; }
+    .div-header { display: table-cell; font-weight: bold; background: #eee; padding: 8px; border: 1px solid #ccc; }
+</style>
+
+These examples demonstrate common WCAG failures when composing HTML tables.
+
+## Table 1: Tables for layout
+
+Using an HTML layout table that does not make sense when linearized violates **WCAG Failure Technique F49**. Using `th` and `caption` in a layout table violates **F46**.
+
+<Tabs>
+  <TabItem label="Rendered View">
+    <table class="layout-table" summary="This table is used to format the page layout">
+        <caption>Page Layout Structure</caption>
+        <tr>
+            <th>Left Navigation</th>
+            <td>Main Content - Welcome to our website.</td>
+            <td>Right Sidebar - Ads go here.</td>
+        </tr>
+        <tr>
+            <td>The quick brown fox</td>
+            <td>jumps over the</td>
+            <td>lazy dog.</td>
+        </tr>
+    </table>
+  </TabItem>
+  
+  <TabItem label="Code View">
+    ```html
+    <table class="layout-table" summary="This table is used to format the page layout">
+        <caption>Page Layout Structure</caption>
+        <tr>
+            <th>Left Navigation</th>
+            <td>Main Content - Welcome to our website.</td>
+            <td>Right Sidebar - Ads go here.</td>
+        </tr>
+        <tr>
+            <td>The quick brown fox</td>
+            <td>jumps over the</td>
+            <td>lazy dog.</td>
+        </tr>
+    </table>
+    ```
+  </TabItem>
+</Tabs>
+
+## Table 2: Bad Data Table
+
+This table violates several rules, including **F91** (faking headers), **F92** (using presentation roles on data), and **SC 1.3.1** (missing scope attributes).
+
+<Tabs>
+  <TabItem label="Rendered View">
+    <table role="presentation" class="bad-zebra">
+        <caption></caption>
+        <tr>
+            <th></th>
+            <td class="fake-header">Employee Name</td>
+            <th id="hdr-dept">Department</th>
+            <th id="hdr-salary">Salary</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>John Doe</td>
+            <td>Engineering</td>
+            <td headers="hdr-bonus">$85,000</td>
+        </tr>
+    </table>
+  </TabItem>
+  
+  <TabItem label="Code View">
+    ```html
+    <table role="presentation" class="bad-zebra">
+        <caption></caption>
+        <tr>
+            <th></th>
+            <td class="fake-header">Employee Name</td>
+            <th id="hdr-dept">Department</th>
+            <th id="hdr-salary">Salary</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>John Doe</td>
+            <td>Engineering</td>
+            <td headers="hdr-bonus">$85,000</td>
+        </tr>
+    </table>
+    ```
+  </TabItem>
+</Tabs>

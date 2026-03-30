@@ -1,0 +1,283 @@
+---
+title: Good Accessibility Tables
+description: Examples of HTML tables that follow WCAG best practices and HTML success techniques.
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import '../../styles/bad-tables.css';
+
+<style>
+    /* Accessible Table Styling */
+    .a11y-table {
+        border-collapse: collapse;
+        width: 100%;
+        max-width: 800px;
+        margin-bottom: 30px;
+        border: 2px solid #333;
+    }
+
+    .a11y-table th, .a11y-table td {
+        border: 1px solid #ccc;
+        padding: 12px;
+        text-align: left;
+    }
+
+    /* High Contrast Headers */
+    .a11y-table th {
+        background-color: #005A9C; 
+        color: #ffffff; 
+        font-weight: bold;
+    }
+
+    .a11y-table caption {
+        font-size: 1.2em;
+        font-weight: bold;
+        text-align: left;
+        padding-bottom: 10px;
+        color: var(--sl-color-white);
+    }
+
+    /* Accessible Zebra Striping (Passes G18 Contrast Requirements) */
+    .zebra-table tr:nth-child(even) {
+        background-color: #f2f2f2; 
+        color: #000000; 
+    }
+    
+    .zebra-table tr:nth-child(odd) {
+        background-color: #ffffff; 
+        color: #000000;
+    }
+</style>
+
+These examples demonstrate how to correctly mark up HTML tables to ensure they are fully navigable and understandable by users relying on assistive technologies.
+
+## Table 1: The Standard Simple Table
+
+This is the standard, most robust way to build a table. 
+* <a href="https://www.w3.org/WAI/WCAG21/Techniques/html/H39">WCAG Technique H39</a>: Uses a descriptive `caption`.
+* <a href="https://www.w3.org/WAI/WCAG21/Techniques/html/H63">WCAG Technique H63</a>: Uses `scope="col"` and `scope="row"` to explicitly define header relationships.
+* **Data Separation:** Every piece of data has its own semantic cell; no `<br>` tags are used for layout.
+
+<Tabs>
+  <TabItem label="Rendered View">
+    <table class="a11y-table">
+        <caption>Employee Directory and Assigned Departments</caption>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Employee Name</th>
+            <th scope="col">Department</th>
+            <th scope="col">Office Location</th>
+        </tr>
+        <tr>
+            <th scope="row">101</th>
+            <td>John Doe</td>
+            <td>Engineering</td>
+            <td>Building A, Room 12</td>
+        </tr>
+        <tr>
+            <th scope="row">102</th>
+            <td>Jane Smith</td>
+            <td>Marketing</td>
+            <td>Building B, Room 4</td>
+        </tr>
+        <tr>
+            <th scope="row">103</th>
+            <td>Alice Williams</td>
+            <td>Human Resources</td>
+            <td>Building A, Room 2</td>
+        </tr>
+    </table>
+  </TabItem>
+  
+  <TabItem label="Code View">
+    ```html
+    <table>
+        <caption>Employee Directory and Assigned Departments</caption>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Employee Name</th>
+            <th scope="col">Department</th>
+            <th scope="col">Office Location</th>
+        </tr>
+        <tr>
+            <th scope="row">101</th>
+            <td>John Doe</td>
+            <td>Engineering</td>
+            <td>Building A, Room 12</td>
+        </tr>
+        <tr>
+            <th scope="row">102</th>
+            <td>Jane Smith</td>
+            <td>Marketing</td>
+            <td>Building B, Room 4</td>
+        </tr>
+        <tr>
+            <th scope="row">103</th>
+            <td>Alice Williams</td>
+            <td>Human Resources</td>
+            <td>Building A, Room 2</td>
+        </tr>
+    </table>
+    ```
+  </TabItem>
+</Tabs>
+
+## Tables 2 & 3: Breaking Down Complex Tables
+
+As recommended by accessibility guidelines, rather than creating a massive table with complex `colspan` and `rowspan` attributes, complex data should be broken up into simpler, highly readable tables. 
+
+These tables also demonstrate <a href="https://www.w3.org/WAI/WCAG21/Techniques/general/G18">WCAG Technique G18</a>, using high-contrast zebra striping to aid users with cognitive or reading difficulties without sacrificing mathematical contrast requirements.
+
+<Tabs>
+  <TabItem label="Rendered View">
+    <table class="a11y-table zebra-table">
+        <caption>Q1 Hardware Inventory: Laptops</caption>
+        <tr>
+            <th scope="col">Model</th>
+            <th scope="col">In Stock</th>
+            <th scope="col">Assigned</th>
+            <th scope="col">On Order</th>
+        </tr>
+        <tr>
+            <th scope="row">Dell XPS 15</th>
+            <td>12</td>
+            <td>45</td>
+            <td>5</td>
+        </tr>
+        <tr>
+            <th scope="row">MacBook Air M2</th>
+            <td>8</td>
+            <td>30</td>
+            <td>10</td>
+        </tr>
+    </table>
+
+    <table class="a11y-table zebra-table">
+        <caption>Q1 Hardware Inventory: Mobile Devices</caption>
+        <tr>
+            <th scope="col">Model</th>
+            <th scope="col">In Stock</th>
+            <th scope="col">Assigned</th>
+            <th scope="col">On Order</th>
+        </tr>
+        <tr>
+            <th scope="row">iPhone 14</th>
+            <td>20</td>
+            <td>110</td>
+            <td>15</td>
+        </tr>
+        <tr>
+            <th scope="row">Google Pixel 7</th>
+            <td>14</td>
+            <td>40</td>
+            <td>5</td>
+        </tr>
+    </table>
+  </TabItem>
+  
+  <TabItem label="Code View">
+    ```html
+    <table class="zebra-table">
+        <caption>Q1 Hardware Inventory: Laptops</caption>
+        <tr>
+            <th scope="col">Model</th>
+            <th scope="col">In Stock</th>
+            <th scope="col">Assigned</th>
+            <th scope="col">On Order</th>
+        </tr>
+        <tr>
+            <th scope="row">Dell XPS 15</th>
+            <td>12</td>
+            <td>45</td>
+            <td>5</td>
+        </tr>
+        <tr>
+            <th scope="row">MacBook Air M2</th>
+            <td>8</td>
+            <td>30</td>
+            <td>10</td>
+        </tr>
+    </table>
+
+    <table class="zebra-table">
+        <caption>Q1 Hardware Inventory: Mobile Devices</caption>
+        <tr>
+            <th scope="col">Model</th>
+            <th scope="col">In Stock</th>
+            <th scope="col">Assigned</th>
+            <th scope="col">On Order</th>
+        </tr>
+        <tr>
+            <th scope="row">iPhone 14</th>
+            <td>20</td>
+            <td>110</td>
+            <td>15</td>
+        </tr>
+        <tr>
+            <th scope="row">Google Pixel 7</th>
+            <td>14</td>
+            <td>40</td>
+            <td>5</td>
+        </tr>
+    </table>
+    ```
+  </TabItem>
+</Tabs>
+
+## Table 4: The Complex Data Table
+
+While simplifying tables is preferred, if you must use a complex layout with merged cells, you must explicitly link the data to the headers.
+
+* <a href="https://www.w3.org/WAI/WCAG21/Techniques/html/H43">WCAG Technique H43</a>: Uses the `id` attribute on header cells and the `headers` attribute on data cells to unambiguously associate them, even across nested columns.
+
+<Tabs>
+  <TabItem label="Rendered View">
+    <table class="a11y-table">
+        <caption>Employee Equipment Assignments</caption>
+        <tr>
+            <th rowspan="2" id="hdr-employee">Employee Name</th>
+            <th colspan="2" id="hdr-equipment">Assigned Equipment</th>
+        </tr>
+        <tr>
+            <th id="hdr-type" headers="hdr-equipment">Type</th>
+            <th id="hdr-model" headers="hdr-equipment">Model</th>
+        </tr>
+        <tr>
+            <th id="emp-john" headers="hdr-employee">John Doe</th>
+            <td headers="emp-john hdr-equipment hdr-type">Laptop</td>
+            <td headers="emp-john hdr-equipment hdr-model">Dell XPS 15</td>
+        </tr>
+        <tr>
+            <th id="emp-jane" headers="hdr-employee">Jane Smith</th>
+            <td headers="emp-jane hdr-equipment hdr-type">Tablet</td>
+            <td headers="emp-jane hdr-equipment hdr-model">iPad Pro</td>
+        </tr>
+    </table>
+  </TabItem>
+  
+  <TabItem label="Code View">
+    ```html
+    <table>
+        <caption>Employee Equipment Assignments</caption>
+        <tr>
+            <th rowspan="2" id="hdr-employee">Employee Name</th>
+            <th colspan="2" id="hdr-equipment">Assigned Equipment</th>
+        </tr>
+        <tr>
+            <th id="hdr-type" headers="hdr-equipment">Type</th>
+            <th id="hdr-model" headers="hdr-equipment">Model</th>
+        </tr>
+        <tr>
+            <th id="emp-john" headers="hdr-employee">John Doe</th>
+            <td headers="emp-john hdr-equipment hdr-type">Laptop</td>
+            <td headers="emp-john hdr-equipment hdr-model">Dell XPS 15</td>
+        </tr>
+        <tr>
+            <th id="emp-jane" headers="hdr-employee">Jane Smith</th>
+            <td headers="emp-jane hdr-equipment hdr-type">Tablet</td>
+            <td headers="emp-jane hdr-equipment hdr-model">iPad Pro</td>
+        </tr>
+    </table>
+    ```
+  </TabItem>
+</Tabs>

@@ -1,24 +1,25 @@
-// @ts-check
+// astro.config.mjs
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 
-// https://astro.build/config
 export default defineConfig({
 	integrations: [
 		starlight({
-			title: 'My Docs',
-			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
+			title: 'a11y-examples',
+			customCss: [
+				'./src/styles/global.css',
+			],
+			social: [
+				{
+				label: 'repo link',
+				icon: 'github',
+				href: 'https://github.com/shkeating/a11y-examples',
+    			},
+			],
 			sidebar: [
 				{
-					label: 'Guides',
-					items: [
-						// Each item here is one entry in the navigation menu.
-						{ label: 'Example Guide', slug: 'guides/example' },
-					],
-				},
-				{
-					label: 'Reference',
-					autogenerate: { directory: 'reference' },
+					label: 'HTML Tables',
+					autogenerate: { directory: 'tables' },
 				},
 			],
 		}),
