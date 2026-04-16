@@ -1,0 +1,63 @@
+---
+title: Headings
+description: An introduction to accessible heading structures and logical nesting.
+---
+
+Headings are one of the most critical elements for web accessibility. They communicate the organization and hierarchy of the content on a page. 
+
+Just like a visual user scans a page's large, bold text to understand its structure, screen reader users rely on programmatic headings to understand the layout. Web browsers, plug-ins, and assistive technologies use headings to provide in-page navigation, allowing users to quickly jump to the specific sections they care about.
+
+The most important heading has the rank 1 (`<h1>`), and the least important heading has the rank 6 (`<h6>`).
+
+---
+
+## Logical Heading Nesting
+
+Headings should always be nested sequentially by their rank (or level). Headings with a lower rank start new subsections that are part of the higher-ranked section.
+
+
+```html
+<main>
+    <h1>SpaceTeddy Inc. Annual Report</h1>
+
+    <h2>Financial Overview</h2>
+    <p>This year was our best yet.</p>
+
+    <h3>Q1 Earnings</h3>
+    <p>Earnings were up 20%.</p>
+
+    <h3>Q2 Earnings</h3>
+    <p>Earnings stabilized in the spring.</p>
+
+    <h2>Future Outlook</h2>
+    <p>We plan to expand to Mars.</p>
+</main>
+```
+
+This group of headings strictly **follows good accessibility practices** because it builds a predictable, sequential outline. It does not skip any ranks when digging deeper into a topic (going from `<h1>` to `<h2>` to `<h3>`). Furthermore, it demonstrates that skipping ranks *upward* (going from an `<h3>` back to an `<h2>`) is totally acceptable and necessary when closing out a subsection to start a new, equally important main section.
+
+---
+
+## Skipping Heading Ranks
+
+Skipping heading ranks *downward* can be highly confusing for users relying on assistive technologies and should be avoided where possible.
+
+
+```html
+<main>
+    <h1>SpaceTeddy Inc. Products</h1>
+
+    <h3>Cotton Fur Bears</h3>
+    <p>Our softest bear.</p>
+
+    <h2>Space Accessories</h2>
+    <p>Gear for your bears.</p>
+
+    <h4>Toy Helmets</h4>
+    <p>Fits all bear models.</p>
+</main>
+```
+
+This group of headings **violates** accessibility standards because it skips ranks. Following an `<h1>` directly with an `<h3>` leaves a gap in the programmatic outline. 
+
+When a screen reader user is navigating via shortcuts and jumps from a level 2 heading directly to a level 4 heading, they might assume they accidentally skipped a section of the page, or that the document's structure is broken. Developers often make this mistake because they want the visual styling (size/weight) of an `<h4>` rather than an `<h3>`, but visual styling should *always* be handled by CSS, never by changing the HTML semantic tags.

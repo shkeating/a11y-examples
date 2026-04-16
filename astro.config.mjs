@@ -32,6 +32,10 @@ export default defineConfig({
     label: 'Labels',
     autogenerate: { directory: 'labels' },
   },
+  {
+    label: 'Headings',
+    link: '/headings/', // Links directly to the index.mdx file you just created
+  },
 ],
     }),
   ],
