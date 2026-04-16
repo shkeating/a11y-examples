@@ -1,0 +1,28 @@
+---
+title: Best Practices
+description: Best practices for implementing accessible labels.
+---
+
+### Use Native HTML First
+
+In general, HTML elements natively provide their own way of labelling. Always prefer native text content over ARIA attributes when possible. 
+
+For example, `aria-label` is incredibly useful, but it should be reserved for cases where text that could label the element is **not** visible. 
+
+### Labelling Iconic Buttons
+
+A common scenario where `aria-label` shines is interactive components that use a commonly understood symbol (like an icon) as their visible label, but lack actual text.
+
+```html
+<button aria-label="Close Dialog" onclick="myDialog.close()">
+    X
+</button>
+```
+Without the `aria-label`, a screen reader would just announce "X, button", which is unhelpful. The `aria-label` overrides the inner text and announces "Close Dialog, button".
+
+### Meaningful Link Text
+
+Because standard links pull their labels from their inner content, the content must be meaningful on its own. 
+
+* **Good:** `<a href="/report.pdf">Download 2026 Financial Report</a>`
+* **Bad:** `<a href="/report.pdf">Click here</a>`

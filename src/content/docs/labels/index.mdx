@@ -1,0 +1,63 @@
+---
+title: Overview
+description: An introduction to labelling elements and regions for assistive technology.
+---
+
+In web accessibility, every interactive element and major page region must have an "accessible name"—often simply referred to as a label. This label is what screen readers announce to users so they understand the purpose of an element before they interact with it.
+
+Below are four distinct examples of how labels are applied to different elements and regions.
+
+### 1. Labelling a Link
+
+```html
+<a href="[https://www.nasa.gov](https://www.nasa.gov)">Visit NASA</a>
+```
+
+**What is the label?** The label of this element is "Visit NASA". 
+
+**Why?**
+By default, standard HTML elements like links derive their accessible name directly from their internal text content. When a screen reader encounters this link, it parses the inner text ("Visit NASA") and combines it with the element's semantic role ("link") to announce: "Visit NASA, link."
+
+### 2. Labelling a Button
+
+```html
+<button type="submit">Submit Application</button>
+```
+
+**What is the label?** The label of this element is "Submit Application".
+
+**Why?**
+Just like links, native `<button>` elements use their inner text content as their accessible label. There is no need to add ARIA attributes to standard buttons if they already contain descriptive text. A screen reader will predictably announce: "Submit Application, button."
+
+### 3. Labelling a Region with aria-label
+
+```html
+<nav aria-label="Main Navigation">
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+    </ul>
+</nav>
+```
+
+**What is the label?** The label of this region is "Main Navigation".
+
+**Why?**
+The `aria-label` attribute directly provides a string that overrides or establishes the accessible name for an element. This is the correct method to use when there is no visible text on the screen that adequately describes the region. By applying this, a screen reader user knows exactly which navigation block they have focused on.
+
+### 4. Labelling a Region with aria-labelledby
+
+```html
+<aside aria-labelledby="sidebar-heading">
+    <h2 id="sidebar-heading">Related Articles</h2>
+    <ul>
+        <li><a href="/article-1">The Apollo Missions</a></li>
+        <li><a href="/article-2">Space Suits</a></li>
+    </ul>
+</aside>
+```
+
+**What is the label?** The label of this region is "Related Articles".
+
+**Why?**
+The `aria-labelledby` attribute sets the accessible name by referencing the unique `id` of another element already present on the page. In this case, the `<aside>` pulls its label directly from the `<h2>` inside it. This is the preferred method over `aria-label` whenever a visible heading exists, as it ensures the visual experience and screen reader experience remain perfectly synchronized.

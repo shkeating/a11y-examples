@@ -1,0 +1,23 @@
+---
+title: Common Failures
+description: Common accessibility failures when labelling elements.
+---
+
+### Redundant Labelling
+
+Do not include the element's role within the `aria-label`. Assistive technologies already announce the role (e.g., "button", "link", "navigation"). Adding it to your label forces the user to hear it twice.
+
+```html
+<button aria-label="Submit Button">Submit</button>
+
+<button>Submit</button>
+```
+
+### Overwriting Visible Text
+
+If you use `aria-label` on an element that already has visible text, the `aria-label` will completely replace the visible text in the accessibility tree.
+
+```html
+<a href="[https://google.com](https://google.com)" aria-label="Go to Google">Search Web</a>
+```
+This causes an issue for voice-dictation users (who might say "Click Search Web" and the computer won't understand them because the programmatic name is "Go to Google"). If an element has visible text, use `aria-labelledby` or rely on the native text.
