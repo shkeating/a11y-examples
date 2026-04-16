@@ -1,0 +1,46 @@
+---
+title: Tables
+description: An introduction to accessible HTML data tables.
+---
+
+Data tables are used to organize data with a logical relationship in grids. Accessible tables need HTML markup that indicates header cells and data cells and defines their relationship. 
+
+Without structural markup, a screen reader will read the table content linearly (left-to-right, top-to-bottom), making it incredibly difficult for users to understand how the data relates to its column or row headers.
+
+### Comprehensive Accessible Table Example
+
+A fully accessible basic table should include a `<caption>` to identify it, `<th>` elements for headers, and the `scope` attribute to explicitly associate headers with their respective rows or columns.
+
+```html
+<table>
+  <caption>Employee Work Hours - March 2026</caption>
+  <thead>
+    <tr>
+      <th scope="col">Employee Name</th>
+      <th scope="col">Department</th>
+      <th scope="col">Hours Worked</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Vanessa Maike</th>
+      <td>Computer Science</td>
+      <td>40</td>
+    </tr>
+    <tr>
+      <th scope="row">John Doe</th>
+      <td>Marketing</td>
+      <td>38</td>
+    </tr>
+    <tr>
+      <th scope="row">Jane Smith</th>
+      <td>Human Resources</td>
+      <td>42</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+### WCAG Considerations
+* [WCAG 1.3.1: Info and Relationships (Level A)](https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships.html): Information, structure, and relationships conveyed through presentation can be programmatically determined. For tables, this means using `<th>` and `scope` so screen readers can accurately announce the headers for any given data cell.
+* [WCAG 1.3.2: Meaningful Sequence (Level A)](https://www.w3.org/WAI/WCAG22/Understanding/meaningful-sequence.html): Ensuring the table is read in a logical order. CSS should not be used to visually rearrange table cells in a way that contradicts the DOM order.
