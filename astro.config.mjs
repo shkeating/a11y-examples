@@ -28,6 +28,10 @@ export default defineConfig({
     label: 'Page Regions',
     autogenerate: { directory: 'page-regions' },
   },
+  {
+    label: 'Labels',
+    autogenerate: { directory: 'labels' },
+  },
 ],
     }),
   ],
