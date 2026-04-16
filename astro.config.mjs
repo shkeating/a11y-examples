@@ -20,11 +20,15 @@ export default defineConfig({
         },
       ],
       sidebar: [
-        {
-          label: "HTML Tables",
-          autogenerate: { directory: "tables" },
-        },
-      ],
+  {
+    label: 'Tables',
+    autogenerate: { directory: 'tables' },
+  },
+  {
+    label: 'Page Regions',
+    autogenerate: { directory: 'page-regions' },
+  },
+],
     }),
   ],
 });
