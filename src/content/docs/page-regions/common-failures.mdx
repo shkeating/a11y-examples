@@ -1,0 +1,53 @@
+---
+title: Common Failures
+description: Examples of poor page region markup and accessibility failures.
+---
+### Ambiguous Identical Regions
+
+A frequent accessibility oversight occurs when developers deploy multiple identical landmarks without providing distinct names. In the scenario below, a screen reader user pulling up a landmark menu simply hears "navigation" followed by "navigation". Without context, they are forced to guess which menu contains the specific links they are looking for.
+
+```html
+<nav>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+    </ul>
+</nav>
+
+<main>
+    <h1>Welcome</h1>
+    <p>Page content here...</p>
+</main>
+
+<nav>
+    <ul>
+        <li><a href="/privacy">Privacy Policy</a></li>
+        <li><a href="/terms">Terms</a></li>
+    </ul>
+</nav>
+```
+
+*The Fix:* Always apply an `aria-label` or `aria-labelledby` attribute when using more than one of the same landmark (e.g., `aria-label="Main Navigation"` and `aria-label="Legal Links"`).
+
+### Fractured Heading Hierarchies
+
+Headings do more than just make text big and bold; they generate a logical, sequential outline of your page's content for assistive technologies. A common mistake is jumping heading ranks for visual styling purposes—such as dropping directly from an `<h1>` down to an `<h4>`. This fractures the semantic hierarchy and disorients users who navigate by headings to understand the page structure.
+
+```html
+<main>
+    <h1>SpaceTeddy Inc. Products</h1>
+    
+    <article>
+        <h2>Cotton Fur Bears</h2>
+        
+        <h4>Washing Instructions</h4>
+        <p>Hand wash only.</p>
+    </article>
+</main>
+```
+
+*Note on Exceptions:* The rule is against skipping levels *downward*. It is perfectly acceptable to skip ranks *upward* when closing subsections (e.g., jumping from an `<h4>` back up to an `<h2>` to start a brand new major section).
+
+### WCAG Considerations
+* [WCAG 1.3.1: Info and Relationships (Level A)](https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships.html): Skipping heading levels disrupts the semantic outline of the page, meaning the programmatic structure no longer reflects a logical relationship.
+* [WCAG 2.4.1: Bypass Blocks (Level A) Failure](https://www.w3.org/WAI/WCAG22/Understanding/bypass-blocks.html): Proper structural markup is what allows users to effectively navigate the DOM. When headings and landmarks are misused, these navigation mechanics fail.
