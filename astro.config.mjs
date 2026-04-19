@@ -44,6 +44,10 @@ export default defineConfig({
     label: 'Content Structure',
     autogenerate: { directory: 'content-structure' },
   },
+    {
+    label: 'Links, Lists, and Iframes',
+    link: '/links-lists-iframes/', 
+  },
 ],
     }),
   ],

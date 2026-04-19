@@ -1,0 +1,120 @@
+---
+title: Links, Lists, and iFrames
+description: An overview of accessibility best practices for links, lists, and iFrames.
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+Building accessible web pages requires careful attention to the structural and interactive elements we use every day. Below are examples of how to properly (and improperly) implement links, lists, and iFrames to ensure an inclusive experience for all users.
+
+## Links
+
+### Good Example
+
+<Tabs>
+  <TabItem label="Preview">
+    <p>For more details on our auditing process, review the <a href="/accessibility-guide">Comprehensive Accessibility Guide</a>.</p>
+  </TabItem>
+  <TabItem label="Code">
+    ```html
+    <p>For more details on our auditing process, review the 
+    <a href="/accessibility-guide">Comprehensive Accessibility Guide</a>.</p>
+    ```
+  </TabItem>
+</Tabs>
+
+This link provides meaningful context entirely through its anchor text. Many people who use screen readers navigate a page by pulling up an isolated menu of all available links. Because the link text explicitly describes its destination, a user listening to this out of context will know exactly what the link is about. 
+
+**WCAG Reference:** [G91: Providing link text that describes the purpose of a link](https://www.w3.org/WAI/WCAG22/Techniques/general/G91)
+
+---
+
+### Common Mistake
+
+<Tabs>
+  <TabItem label="Preview">
+    <p>To view the syllabus for the Advanced Accessibility course, <a href="/syllabus.pdf">click here</a>.</p>
+  </TabItem>
+  <TabItem label="Code">
+    ```html
+    <p>To view the syllabus for the Advanced Accessibility course, 
+    <a href="/syllabus.pdf">click here</a>.</p>
+    ```
+  </TabItem>
+</Tabs>
+
+Using ambiguous phrases like "click here" or "read more" is a barrier to accessibility. If a user navigates from link to link without the surrounding paragraph text, they will only hear "click here," which gives them no indication of what will happen if they activate the link.
+
+**WCAG Reference:**
+[F63: Failure of Success Criterion 2.4.4 due to providing link context only in content that is not related to the link](https://www.w3.org/WAI/WCAG22/Techniques/failures/F63)
+
+---
+
+## Lists
+### Good Example
+
+<Tabs>
+  <TabItem label="Preview">
+    <h3>Key Accessibility Principles</h3>
+    <ul>
+      <li>Perceivable</li>
+      <li>Operable</li>
+      <li>Understandable</li>
+      <li>Robust</li>
+    </ul>
+  </TabItem>
+  <TabItem label="Code">
+    ```html
+    <h3>Key Accessibility Principles</h3>
+    <ul>
+      <li>Perceivable</li>
+      <li>Operable</li>
+      <li>Understandable</li>
+      <li>Robust</li>
+    </ul>
+    ```
+  </TabItem>
+</Tabs>
+
+By using the appropriate semantic HTML tags (in this case, the `<ul>` and `<li>` elements), assistive technologies can correctly interpret the content's structure. When a screen reader encounters this markup, it will announce that the user has reached a list and will state exactly how many items the list contains. This semantic data gives non-sighted users the same structural awareness that sighted users get visually.
+
+**WCAG Reference:**
+[H48: Using ol, ul and dl for lists or groups of links](https://www.w3.org/WAI/WCAG22/Techniques/html/H48)
+
+---
+
+## iFrames
+
+### Good Example
+
+<Tabs>
+  <TabItem label="Preview">
+     <iframe width="560" 
+    height="315" 
+    src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=g_IXt6IEjMAAg4ea" 
+    title="Youtube Video: Rick Astley - Never Gonna Give You Up" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+    referrerpolicy="strict-origin-when-cross-origin" 
+    allowfullscreen>
+    </iframe>
+  </TabItem>
+  <TabItem label="Code">
+    ```html
+    <iframe width="560" 
+    height="315" 
+    src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=g_IXt6IEjMAAg4ea" 
+    title="Youtube Video: Rick Astley - Never Gonna Give You Up" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+    referrerpolicy="strict-origin-when-cross-origin" 
+    allowfullscreen>
+    </iframe>
+    ```
+  </TabItem>
+</Tabs>
+
+Including an accurate and descriptive `title` attribute is the most critical step for making embedded content accessible. When a screen reader encounters an iFrame, it reads the `title` attribute to inform the user about the embedded document's purpose before they navigate into it. Proper labeling here successfully fulfills both the Bypass Blocks and Name, Role, Value guidelines.
+
+**WCAG Reference:**
+[H64: Using the title attribute of the frame and iframe elements](https://www.w3.org/WAI/WCAG22/Techniques/html/H64)
