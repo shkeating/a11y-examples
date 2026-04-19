@@ -28,8 +28,8 @@ function formatTitle(id: string) {
     <LinkCard 
       title={formatTitle(page.id)}
       description={page.data.description} 
-      {/* Prepend BASE_URL so links resolve correctly in dev AND prod */}
-      href={`${import.meta.env.BASE_URL}${page.id}/`} 
+      {/* Strips any existing trailing slash from BASE_URL, then safely adds one */}
+      href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/${page.id}/`} 
     />
   ))}
 </CardGrid>

@@ -57,9 +57,8 @@ When combining images or illustrations with text descriptions, grouping them sem
 <Tabs>
   <TabItem label="Preview">
     <figure>
-      {/* Inject the BASE_URL so the image loads in both dev and production */}
-      <img src={`${import.meta.env.BASE_URL}assets/may-the-dog.jpg`} alt="A fluffy dog with a double coat standing in a snowy field" />
-      <figcaption>May enjoying a winter walk</figcaption>
+      <img src={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/assets/may-the-dog.jpg`} alt="A fluffy dog with a double coat standing in a snowy field" />
+      <figcaption>May enjoying a winter walk in the Catskills</figcaption>
     </figure>
   </TabItem>
   <TabItem label="Code (HTML)">
@@ -71,3 +70,4 @@ When combining images or illustrations with text descriptions, grouping them sem
     ```
   </TabItem>
 </Tabs>
+
