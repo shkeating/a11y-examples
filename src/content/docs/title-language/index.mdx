@@ -1,0 +1,81 @@
+---
+title: Title & Language
+description: An introduction to accessible page titles and document language declarations.
+---
+
+Setting up clear page titles and designating the correct document language are fundamental steps for creating accessible websites. Text-to-speech tools and other assistive technologies require this structural metadata to effectively process and present digital content.
+
+While sighted users might visually scan a page to quickly determine its subject, individuals using screen readers depend on the programmatic `<title>` tag to summarize the page's purpose before they invest time interacting with the main content. Additionally, defining the document's language ensures that voice synthesizers apply the appropriate regional pronunciation and cadence to the text.
+
+---
+
+## Best Practices
+
+Effective page titles are brief, distinct from other pages on the site, and structured so that the most important details appear at the very beginning. For language, developers must apply a valid, standardized language code to the root `<html>` tag.
+
+### Example: U.S. Figure Skating
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Malinin Leads U.S. to Repeat Olympic Team Event Title - U.S. Figure Skating</title>
+</head>
+<body>
+    <main>
+        <h1>Malinin Leads U.S. to Repeat Olympic Team Event Title</h1>
+        <p>Article content goes here...</p>
+    </main>
+</body>
+</html>
+```
+
+This document architecture successfully adheres to accessibility guidelines by establishing the `lang="en"` attribute right at the start. It also properly structures the `<title>` tag. Because individuals using screen readers cannot instantly scan a page visually, positioning the specific article context first lets them verify they have reached their desired destination before they have to listen to the overarching site name.
+
+---
+
+## Common Failures
+
+When platforms use identical introductory text for all their page titles, or neglect to declare a primary language, it creates significant friction and comprehension issues for assistive technology users.
+
+### Failure: Non-Unique Front-Loading (City of Kingston)
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Welcome to the City of Kingston, NY - City Clerk/Registrar's Office</title>
+</head>
+<body>
+    <main>
+        <h1>City Clerk/Registrar's Office</h1>
+    </main>
+</body>
+</html>
+```
+
+This configuration fails to meet accessibility expectations because it buries the critical information at the end of the `<title>`. Throughout the `kingston-ny.gov` domain, almost all pages begin with "Welcome to the City of Kingston, NY -". Consequently, a person navigating via a screen reader with several tabs open must endure the exact same welcome message over and over before discovering which specific department page they are viewing. The most specific, differentiating details must always be positioned at the start of the title string.
+
+### Failure: Missing Language Attribute (Deque Mars Demo)
+
+Deque University maintains an intentionally inaccessible website about Mars (`dequeuniversity.com/demo/mars/`) to demonstrate common accessibility blockers. One of its core failures is a missing language declaration.
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Mars Commuter</title>
+</head>
+<body>
+    <main>
+        <h1>Welcome to Mars!</h1>
+        <p>Book your flights today.</p>
+    </main>
+</body>
+</html>
+```
+
+This code snippet fails to meet basic standards because it omits the `lang` attribute entirely on the `<html>` tag. When developers skip this step, assistive technologies typically fall back to whatever language the user's computer system is currently set to. If someone with a French operating system visits this English-language Mars site, their screen reader will try to vocalize the English vocabulary using French phonetics, resulting in total gibberish.

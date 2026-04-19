@@ -20,6 +20,10 @@ export default defineConfig({
         },
       ],
       sidebar: [
+         {
+    label: 'Title & Language',
+    link: '/title-language/', 
+  },
   {
     label: 'Tables',
     autogenerate: { directory: 'tables' },
