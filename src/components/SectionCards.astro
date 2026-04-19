@@ -7,20 +7,30 @@ const docs = await getCollection('docs');
 
 // Filter to find only the parent "index" pages of each section
 const parentPages = docs.filter(doc => {
-  // Exclude the root homepage itself
-  if (doc.id === 'index.mdx') return false;
+  // Exclude the root homepage (its computed slug ID is now an empty string)
+  if (doc.id === '' || doc.id === 'index') return false;
   
-  // Only keep files that are the index of a subdirectory
-  return doc.id.endsWith('/index.mdx') || doc.id.endsWith('/index.md');
+  // Keep files that don't have a slash in their slug ID.
+  // In your structure, 'labels', 'headings', 'page-regions', and 'tables' 
+  // will match this, while nested pages like 'labels/best-practices' will be excluded.
+  return !doc.id.includes('/');
 });
+
+// Helper function to turn slugs like 'page-regions' into 'Page Regions'
+function formatTitle(id: string) {
+  return id
+    .split('-') // Split by hyphen
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize each word
+    .join(' '); // Join back together with a space
+}
 ---
 
 <CardGrid>
   {parentPages.map(page => (
     <LinkCard 
-      title={page.data.title} 
+      title={formatTitle(page.id)}
       description={page.data.description} 
-      href={`/${page.slug}/`} 
+      href={`/${page.id}/`} 
     />
   ))}
 </CardGrid>
