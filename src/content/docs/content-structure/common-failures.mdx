@@ -1,0 +1,26 @@
+---
+title: Common Failures
+description: Examples of inaccessible content structure patterns to avoid.
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+### Empty Paragraphs for Spacing
+
+A common mistake in content authoring is using semantic HTML elements for visual spacing purposes. You should never use empty `<p>` elements to add space between paragraphs. Screen readers may announce the presence of the paragraph but find no content inside, which can be confusing and frustrating for the user. If you need extra space between blocks of text, you should use CSS properties, such as `margin-bottom`, instead.
+
+* [WCAG Failure F43](https://www.w3.org/WAI/WCAG21/Techniques/failures/F43) Failure of Success Criterion 1.3.1 due to using structural markup in a way that does not represent relationships in the content (such as using empty `<p>` tags for layout spacing).
+
+<Tabs>
+  <TabItem label="Preview">
+    <p>Proper hydration is essential before hitting the ice.</p>
+    <p></p>
+    <p>Make sure to drink water throughout your practice session.</p>
+  </TabItem>
+  <TabItem label="Code (HTML)">
+    ```html
+    <p>Proper hydration is essential before hitting the ice.</p>
+    <p></p>
+    <p>Make sure to drink water throughout your practice session.</p>
+    ```
+  </TabItem>
+</Tabs>

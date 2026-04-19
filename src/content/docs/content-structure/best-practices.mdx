@@ -1,0 +1,72 @@
+---
+title: Best Practices
+description: Examples of accessible content structure and semantic HTML.
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+### Accessible Paragraphs
+
+When structuring text, it is crucial to use standard paragraph elements to break up content. Using the `<p>` element makes the page more accessible. This semantic structure provides shortcuts for screen-readers and other assistive technologies, letting users skip to the next or previous paragraph. Breaking up the text also allows users to skim the content more easily, much like white space does for visual users.
+
+* [WCAG Technique G115](https://www.w3.org/WAI/WCAG21/Techniques/general/G115) Using semantic elements to mark up structure.
+
+<Tabs>
+  <TabItem label="Preview">
+    <p>When preparing for an adult figure skating competition, maintaining edge quality during the step sequence is critical for maximizing your component score.</p>
+    <p>Additionally, ensuring your blades are properly mounted and sharpened will provide the stability needed for complex footwork.</p>
+  </TabItem>
+  <TabItem label="Code (HTML)">
+    ```html
+    <p>When preparing for an adult figure skating competition, maintaining edge quality during the step sequence is critical for maximizing your component score.</p>
+    <p>Additionally, ensuring your blades are properly mounted and sharpened will provide the stability needed for complex footwork.</p>
+    ```
+  </TabItem>
+</Tabs>
+
+### Accessible Quotes
+
+When referencing external material, semantic quote elements ensure the attribution is clear to all users. Identifying a quotation clarifies that the content is attributed to another author. By using the `<blockquote>` element for longer and more complex quotes, assistive technologies can convey exactly where a quote starts and ends, which avoids misunderstandings. Furthermore, the `<cite>` element is properly utilized to refer to the source of the quote.
+
+* [WCAG Technique H49](https://www.w3.org/WAI/WCAG21/Techniques/html/H49) Uses semantic markup to mark emphasized or special text, which specifically includes `<blockquote>` and `<q>`.
+* You can also use the `cite` attribute inside the `<blockquote>` tag to provide a programmatic link to the source document.
+
+<Tabs>
+  <TabItem label="Preview">
+    <p>As noted in the official judging guidelines:</p>
+    <blockquote cite="https://usfigureskating.org/rules">
+      <p>The execution of a well-balanced program requires not only technical proficiency but also a deep connection to the chosen music, a concept thoroughly explored in <cite>The Complete Guide to Adult Figure Skating</cite>.</p>
+    </blockquote>
+  </TabItem>
+  <TabItem label="Code (HTML)">
+    ```html
+    <p>As noted in the official judging guidelines:</p>
+    <blockquote cite="https://usfigureskating.org/rules">
+      <p>The execution of a well-balanced program requires not only technical proficiency but also a deep connection to the chosen music, a concept thoroughly explored in <cite>The Complete Guide to Adult Figure Skating</cite>.</p>
+    </blockquote>
+    ```
+  </TabItem>
+</Tabs>
+
+### Accessible Figures
+
+When combining images or illustrations with text descriptions, grouping them semantically provides the best context. The `<figure>` element correctly represents self-contained content. By pairing it with the `<figcaption>` element to specify the caption, the figure, its caption, and the image itself are referenced by assistive technologies as a single, cohesive unit.
+
+* [WCAG Technique H37](https://www.w3.org/WAI/WCAG21/Techniques/html/H37) Using `alt` attributes on `img` elements.
+* Ensure your `alt` text and `<figcaption>` are not identical. Redundant text forces screen reader users to listen to the exact same phrase twice. If the caption fully describes the image, the image `alt` text can be left empty (`alt=""`).
+
+<Tabs>
+  <TabItem label="Preview">
+     <figure>
+      <img src="/assets/may-the-dog.jpg" alt="A fluffy dog playing in a snowy field" />
+      <figcaption>May enjoying the winter weather</figcaption>
+    </figure>
+  </TabItem>
+  <TabItem label="Code (HTML)">
+    ```html
+    <figure>
+      <img src="/assets/may-the-dog.jpg" alt="A fluffy dog playing in a snowy field" />
+      <figcaption>May enjoying the winter weather</figcaption>
+    </figure>
+    ```
+  </TabItem>
+</Tabs>

@@ -34,7 +34,11 @@ export default defineConfig({
   },
   {
     label: 'Headings',
-    link: '/headings/', // Links directly to the index.mdx file you just created
+    link: '/headings/', 
+  },
+    {
+    label: 'Content Structure',
+    autogenerate: { directory: 'content-structure' },
   },
 ],
     }),
