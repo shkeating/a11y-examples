@@ -1,0 +1,26 @@
+---
+import { getCollection } from 'astro:content';
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+
+// Fetch all documentation pages from the content collection
+const docs = await getCollection('docs');
+
+// Filter to find only the parent "index" pages of each section
+const parentPages = docs.filter(doc => {
+  // Exclude the root homepage itself
+  if (doc.id === 'index.mdx') return false;
+  
+  // Only keep files that are the index of a subdirectory
+  return doc.id.endsWith('/index.mdx') || doc.id.endsWith('/index.md');
+});
+---
+
+<CardGrid>
+  {parentPages.map(page => (
+    <LinkCard 
+      title={page.data.title} 
+      description={page.data.description} 
+      href={`/${page.slug}/`} 
+    />
+  ))}
+</CardGrid>
