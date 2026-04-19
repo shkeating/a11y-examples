@@ -56,16 +56,17 @@ When combining images or illustrations with text descriptions, grouping them sem
 
 <Tabs>
   <TabItem label="Preview">
-     <figure>
-      <img src="/assets/may-the-dog.jpg" alt="A fluffy dog playing in a snowy field" />
-      <figcaption>May enjoying the winter weather</figcaption>
+    <figure>
+      {/* Inject the BASE_URL so the image loads in both dev and production */}
+      <img src={`${import.meta.env.BASE_URL}assets/may-the-dog.jpg`} alt="A fluffy dog with a double coat standing in a snowy field" />
+      <figcaption>May enjoying a winter walk</figcaption>
     </figure>
   </TabItem>
   <TabItem label="Code (HTML)">
     ```html
     <figure>
-      <img src="/assets/may-the-dog.jpg" alt="A fluffy dog playing in a snowy field" />
-      <figcaption>May enjoying the winter weather</figcaption>
+      <img src="/assets/may-the-dog.jpg" alt="A fluffy dog with a double coat standing in a snowy field" />
+      <figcaption>May enjoying a winter walk</figcaption>
     </figure>
     ```
   </TabItem>
